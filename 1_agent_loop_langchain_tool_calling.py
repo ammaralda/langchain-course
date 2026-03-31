@@ -6,7 +6,6 @@ from langchain.chat_models import init_chat_model
 from langchain.tools import tool
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 from langsmith import traceable
-from langchain_google_genai import ChatGoogleGenerativeAI
 
 MAX_ITERATION = 10
 
@@ -30,7 +29,7 @@ def run_agent(question:str):
     tools = [get_product_price, apply_discount]
     tools_dict = {t.name: t for t in tools}
 
-    llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite-preview",
+    llm = init_chat_model("google_genai:gemini-3.1-flash-lite-preview",
                              temperature=0)
     llm_with_tools = llm.bind_tools(tools)
 
